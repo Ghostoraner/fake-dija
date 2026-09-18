@@ -1,13 +1,64 @@
-# Дія/Дия
-Цифровые документы прямо у вас под рукой)
+# Дія / Дия
 
-**Управление** 
+> Цифровые документы — прямо у вас под рукой.
 
-Меню>Бізнес та ФОП>выбор изменения
+<div align="center">
+  <img src="./assets-git/lockscreen.jpg" alt="Экран блокировки приложения Дія" width="260" />
+  <br />
+  <strong>Безопасный и удобный доступ к цифровым документам</strong>
+</div>
 
-> **Важно**: стандартный Expo не собирает из этого проекта нативные приложения `.exe` для Windows и `.AppImage/.deb` для Linux. Для Linux и Windows используется web-сборка Expo, которая запускается в браузере. Нативная сборка Android выполняется через EAS Build в облаке и может быть запущена с любой из этих операционных систем. Данный код несет исключительно познавательный характер, все кто решит воспользоваться им берет всю ответственность на себя
+## О проекте
+
+**Дія / Дия** — мобильное приложение на Expo и React Native для хранения цифровых документов и доступа к основным разделам сервиса в одном месте.
+
+Приложение поддерживает Android и web-версию, сохраняет данные локально и предлагает простой сценарий авторизации с тестовым PIN-кодом.
+
+## Интерфейс приложения
+
+Ниже — несколько экранов проекта: от быстрого доступа к меню до разделов с документами и новостями.
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="./assets-git/menu.jpg" alt="Главное меню приложения" width="100%" />
+      <br />
+      <b>Главное меню</b><br />
+      <sub>Быстрый переход к возможностям приложения</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="./assets-git/documents.jpg" alt="Раздел цифровых документов" width="100%" />
+      <br />
+      <b>Цифровые документы</b><br />
+      <sub>Документы всегда доступны под рукой</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="./assets-git/news%20lane.jpg" alt="Лента новостей приложения" width="100%" />
+      <br />
+      <b>Лента новостей</b><br />
+      <sub>Актуальная информация в привычном формате</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="./assets-git/lockscreen.jpg" alt="Экран блокировки приложения" width="100%" />
+      <br />
+      <b>Экран блокировки</b><br />
+      <sub>Дополнительный уровень защиты при запуске</sub>
+    </td>
+  </tr>
+</table>
+
+## Управление
+
+Откройте:
+
+`Меню → Бізнес та ФОП → выберите нужное изменение`
+
+> **Важно:** стандартный Expo не собирает из этого проекта нативные приложения `.exe` для Windows и `.AppImage` / `.deb` для Linux. Для этих форматов потребуется дополнительная адаптация проекта под Electron или Tauri.
 
 ---
+
 ## Технологии
 
 - Expo SDK 54
@@ -29,7 +80,7 @@
 - Git — если проект клонируется из репозитория;
 - аккаунт Expo — только для облачной сборки через EAS.
 
-Для локального запуска Android дополнительно понадобятся Android Studio и настроенный Android SDK. Для запуска в браузере Android Studio не требуется.
+Для локального запуска Android дополнительно понадобятся Android Studio и настроенный Android SDK. Для запуска в браузере достаточно Node.js и npm.
 
 ## Установка проекта
 
@@ -71,124 +122,51 @@ npm run ios       # запуск iOS-версии (только macOS с Xcode)
 
 ## Сборка web-приложения для Linux и Windows
 
-Эта сборка создаёт статические файлы в каталоге `dist`. Их можно открыть на Linux или Windows в любом современном браузере либо разместить на web-сервере.
-
-### Linux
-
-В терминале Linux выполните:
+Эта сборка создаёт статические файлы в каталоге `dist`:
 
 ```bash
 npm ci
 npx expo export --platform web
 ```
 
-Для локальной проверки установите простой статический сервер и запустите его:
+Для локальной проверки установите простой статический сервер:
 
 ```bash
 npx serve dist
 ```
 
-Откройте адрес, который напечатает команда, обычно `http://localhost:3000`.
-
-Другой вариант — использовать Python, если он уже установлен:
+Или используйте Python:
 
 ```bash
 python3 -m http.server 8080 --directory dist
 ```
 
-После этого откройте `http://localhost:8080`.
-
-### Windows PowerShell
-
-В PowerShell выполните:
-
-```powershell
-npm ci
-npx expo export --platform web
-npx serve dist
-```
-
-Если PowerShell запрещает запуск npm-скриптов, запустите команды через `npm.cmd` или измените политику выполнения для текущего пользователя:
-
-```powershell
-Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
-```
-
-Альтернативный локальный сервер на Python:
-
-```powershell
-python -m http.server 8080 --directory dist
-```
-
-Откройте `http://localhost:8080`.
-
-### Раздача web-сборки через Nginx или IIS
-
-После выполнения `npx expo export --platform web` содержимое каталога `dist` можно загрузить на хостинг. Для SPA-ссылок сервер должен возвращать `index.html`, если запрошенный файл не найден.
-
-В Nginx это обычно выглядит так:
-
-```nginx
-server {
-    listen 80;
-    server_name example.com;
-    root /var/www/diya-app/dist;
-    index index.html;
-
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-}
-```
-
-Для IIS настройте правило URL Rewrite с перенаправлением неизвестных маршрутов на `index.html`.
+Откройте адрес, который напечатает команда, обычно `http://localhost:3000` или `http://localhost:8080`.
 
 ## Сборка Android через EAS
 
 EAS Build выполняется в облаке Expo, поэтому запустить его можно и из Linux, и из Windows.
 
-1. Установите EAS CLI:
-
-   ```bash
-   npm install --global eas-cli
-   ```
-
-2. Авторизуйтесь в Expo:
-
-   ```bash
-   eas login
-   ```
-
-3. Проверьте конфигурацию проекта:
-
-   ```bash
-   eas whoami
-   npx expo config --type public
-   ```
-
-4. Соберите APK для тестовой установки:
-
-   ```bash
-   eas build --platform android --profile preview
-   ```
-
-   Профиль `preview` из `eas.json` собирает APK. После завершения EAS покажет ссылку на скачивание файла.
-
-5. Соберите production-версию для публикации в Google Play:
-
-   ```bash
-   eas build --platform android --profile production
-   ```
-
-   Production-профиль обычно создаёт Android App Bundle (`.aab`).
-
-Для интерактивной настройки проекта, если EAS ещё не связан с аккаунтом:
-
 ```bash
-eas build:configure
+npm install --global eas-cli
+eas login
+eas whoami
+npx expo config --type public
 ```
 
-В `app.json` уже указан идентификатор EAS-проекта. Не удаляйте его без необходимости.
+Соберите APK для тестовой установки:
+
+```bash
+eas build --platform android --profile preview
+```
+
+Production-версия для Google Play:
+
+```bash
+eas build --platform android --profile production
+```
+
+Профиль `preview` из `eas.json` собирает APK, а production-профиль обычно создаёт Android App Bundle (`.aab`).
 
 ## Что можно получить на каждой ОС
 
@@ -198,9 +176,7 @@ eas build:configure
 | Windows | `npx expo export --platform web` | Web-приложение в `dist/` |
 | Android | `eas build --platform android --profile preview` | Устанавливаемый `.apk` |
 | Google Play | `eas build --platform android --profile production` | Пакет `.aab` |
-| iOS | `eas build --platform ios --profile production` | Сборка через EAS; публикация требует Apple Developer Account |
-
-Чтобы получить отдельный нативный `.exe` или Linux-пакет, проект необходимо дополнительно адаптировать под Electron, Tauri, React Native Windows или React Native macOS. Это не входит в текущую конфигурацию репозитория.
+| iOS | `eas build --platform ios --profile production` | Сборка через EAS |
 
 ## Ограничения web-версии
 
@@ -217,7 +193,7 @@ eas build:configure
 npx expo start --clear       # очистить кэш Metro и запустить Expo
 npx expo doctor              # проверить зависимости и конфигурацию
 npx expo export --platform web
- eas build:list               # посмотреть сборки EAS
+eas build:list               # посмотреть сборки EAS
 ```
 
 ## Структура основных файлов
@@ -225,7 +201,8 @@ npx expo export --platform web
 - `App.js` — основной экран и логика приложения;
 - `app.json` — настройки Expo, имя, иконки и Android package name;
 - `eas.json` — профили облачных сборок EAS;
-- `assets/` — изображения и иконки;
+- `assets/` — изображения и иконки приложения;
+- `assets-git/` — скриншоты интерфейса для документации;
 - `index.js` — точка входа приложения;
 - `package.json` — зависимости и npm-скрипты.
 
